@@ -8,21 +8,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import javafx.application.Application;
+
 public class ChatServer {
 	private ArrayList<PrintWriter> clientOutputStreams;
 
 	public static void main(String[] args) {
 		try {
-			new ChatServer().setUpNetworking();
+			
+			new ChatServer().setUpNetworking(Login.serverport);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void setUpNetworking() throws Exception {
+	private void setUpNetworking(int i) throws Exception {
 		clientOutputStreams = new ArrayList<PrintWriter>();
 		@SuppressWarnings("resource")
-		ServerSocket serverSock = new ServerSocket(4242);
+		ServerSocket serverSock = new ServerSocket(i);
 		while (true) {
 			Socket clientSocket = serverSock.accept();
 			PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());

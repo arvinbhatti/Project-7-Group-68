@@ -22,7 +22,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Login extends Application {
-
+	public static String user = "no username";
+	public static int serverport = 0;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Welcome to ChatRoom");
@@ -49,11 +50,29 @@ public class Login extends Application {
 		PasswordField pwBox = new PasswordField();
 		grid.add(pwBox, 1, 2);
 		
+		Label ser = new Label("Server Port:");
+		grid.add(ser, 0, 3);
+		
+		TextField serverTextField = new TextField();
+		grid.add(serverTextField, 1, 3);
+		
 		Button btn = new Button("Sign in");
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().add(btn);
 		grid.add(hbBtn, 1, 4);
+		
+		Label kljal = new Label("Server Port:");
+		grid.add(kljal, 0, 5);
+		
+		TextField server2TextField = new TextField();
+		grid.add(server2TextField, 1, 5);
+		
+		Button btn2 = new Button("Make Server");
+		HBox hbBtn2 = new HBox(10);
+		hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
+		hbBtn2.getChildren().add(btn2);
+		grid.add(hbBtn2, 1, 6);
 		
 		final Text actiontarget = new Text();
 		btn.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
@@ -61,10 +80,27 @@ public class Login extends Application {
 		    @Override
 		    public void handle(ActionEvent e) {
 		        actiontarget.setFill(Color.FIREBRICK);
+		        user = userTextField.getText();
+		        serverport = Integer.parseInt(serverTextField.getText());
+		        
 		        primaryStage.hide();
-		        ChatClient.main(null);
+		        ChatServer.main(null);
 		    }
 		});
+		
+		
+		
+		btn2.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
+			 
+		    @Override
+		    public void handle(ActionEvent e) {
+		        serverport = Integer.parseInt(server2TextField.getText());
+		        primaryStage.hide();	        
+		        ChatServer.main(null);
+		    }
+		});
+		
+		
 		
         grid.add(actiontarget, 1, 6);
         
